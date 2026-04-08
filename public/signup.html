@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | CareFlow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="center">
+  <div class="form-card">
+    <div style="font-size:32px;margin-bottom:12px">👤</div>
+    <h2>Create Account</h2>
+    <p class="subtitle">Register as a new patient</p>
+<<<<<<< HEAD
+=======
+
+    <!-- Error messages -->
+    <?php if (isset($_GET['error'])): ?>
+    <div id="err-box" style="background:#fee2e2;color:#b91c1c;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;"></div>
+    <?php endif; ?>
+    <div id="err-box" style="display:none;background:#fee2e2;color:#b91c1c;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;"></div>
+
+>>>>>>> 41036b6 (first commit)
+    <form action="signup.php" method="POST">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" name="name" placeholder="e.g. Arjun Kumar" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date of Birth</label>
+        <input class="form-input" type="date" name="dob" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input class="form-input" name="phone" placeholder="+91 98765 43210" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" name="password" placeholder="Create a strong password" required>
+      </div>
+      <button type="submit" class="form-btn">Create Account →</button>
+    </form>
+    <p class="form-footer">Already registered? <a href="login.html">Login here</a></p>
+  </div>
+</div>
+<<<<<<< HEAD
+=======
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const err = params.get('error');
+  const box = document.getElementById('err-box');
+  if (err === 'email') {
+    box.style.display = 'block';
+    box.textContent = 'This email is already registered. Please login instead.';
+  } else if (err === 'db') {
+    box.style.display = 'block';
+    box.textContent = 'Something went wrong. Please try again.';
+  }
+</script>
+>>>>>>> 41036b6 (first commit)
+</body>
+</html>

@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f7fb;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Left side */
+.left {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Right side */
+.right {
+    width: 70%;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Profile */
+.profile p {
+    margin: 6px 0;
+}
+
+/* Queue */
+.queue h3 {
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn-group {
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.call {
+    background: #007bff;
+}
+
+.complete {
+    background: #28a745;
+}
+
+.submit {
+    background: #6f42c1;
+    margin-top: 15px;
+}
+
+/* Prescription */
+.prescription textarea {
+    width: 100%;
+    height: 90px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.prescription label {
+    font-weight: bold;
+}
+
+/* Logout */
+.logout {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: red;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+}
