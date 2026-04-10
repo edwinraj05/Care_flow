@@ -1,32 +1,28 @@
 <?php
 session_start();
-<<<<<<< HEAD
-if ($_SESSION['role'] != "doctor") { header("Location: ../staff/login.html"); exit; }
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "doctor") {
+    header("Location: ../staff/login.html");
+    exit;
+}
+
 include("../config/db.php");
-$staff_id = $_SESSION['user'];
+
+$staff_id = $_SESSION['user'] ?? '';
+
 $res = mysqli_query($conn, "SELECT * FROM staff WHERE staff_id='$staff_id'");
 $staff = mysqli_fetch_assoc($res);
-$initials = strtoupper(substr($staff['name'],0,1)) . (strpos($staff['name'],' ')!==false ? strtoupper(substr($staff['name'],strpos($staff['name'],' ')+1,1)) : '');
-=======
-if (!isset($_SESSION['role']) || $_SESSION['role'] != "doctor") {
-    header("Location: ../staff/login.html"); exit;
-}
-include("../config/db.php");
-$staff_id = $_SESSION['user'];
-$res   = mysqli_query($conn, "SELECT * FROM staff WHERE staff_id='$staff_id'");
-$staff = mysqli_fetch_assoc($res);
-$parts    = explode(' ', $staff['name']);
+
+$parts = explode(' ', $staff['name']);
 $initials = strtoupper(substr($parts[0],0,1)) . (isset($parts[1]) ? strtoupper(substr($parts[1],0,1)) : '');
-$fname    = htmlspecialchars($parts[0]);
+$fname = htmlspecialchars($parts[0]);
 
 $waiting = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Waiting'"))['t'];
-$done    = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Completed' AND DATE(created_at)=CURDATE()"))['t'];
->>>>>>> 41036b6 (first commit)
+$done = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Completed' AND DATE(created_at)=CURDATE()"))['t'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Doctor Dashboard | CareFlow</title>
@@ -84,7 +80,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; padding-b
     .pulse { width:8px; height:8px; border-radius:50%; background:#60a5fa; animation:pulse 1.5s infinite; display:inline-block; margin-right:6px; }
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
   </style>
-=======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doctor Dashboard | CareFlow</title>
@@ -182,28 +177,21 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 .today-num { font-family:'DM Serif Display',Georgia,serif; font-size:28px; color:#3b82f6; }
 .today-lbl { font-size:11px; color:#94a3b8; margin-top:2px; }
 </style>
->>>>>>> 41036b6 (first commit)
 </head>
 <body>
 
 <div class="topbar">
-<<<<<<< HEAD
-  <a href="#" class="topbar-logo">Care<span>Flow</span></button>
-=======
-  <a href="#" class="topbar-logo" onclick="switchTab('queue');return false;">Care<span>Flow</span></a>
->>>>>>> 41036b6 (first commit)
+  <a href="#" class="topbar-logo" onclick="switchTab('queue');return false;">
+    Care<span>Flow</span>
+  </a>
+
   <div class="topbar-right">
     <div class="topbar-avatar"><?= $initials ?></div>
     <span class="topbar-name"><?= htmlspecialchars($staff['name']) ?></span>
     <span class="topbar-badge">Doctor</span>
-<<<<<<< HEAD
-    <a href="../auth/logout.php" class="topbar-logout">Logout</button>
-=======
     <a href="../auth/logout.php" class="topbar-logout">Logout</a>
->>>>>>> 41036b6 (first commit)
   </div>
 </div>
-
 <!-- QUEUE SCREEN -->
 <div class="screen active" id="screen-queue">
   <div class="greeting">
@@ -211,13 +199,10 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
     <p><?= htmlspecialchars($staff['department']) ?></p>
   </div>
 
-<<<<<<< HEAD
   <?php
   $waiting = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Waiting'"))['t'];
   $done = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Completed' AND DATE(created_at)=CURDATE()"))['t'];
   ?>
-=======
->>>>>>> 41036b6 (first commit)
   <div class="stats-row">
     <div class="stat-box"><div class="stat-num" style="color:#3b82f6"><?= $waiting ?></div><div class="stat-lbl">Waiting</div></div>
     <div class="stat-box"><div class="stat-num" style="color:#f59e0b"><?= $done ?></div><div class="stat-lbl">Completed</div></div>
@@ -225,13 +210,10 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   </div>
 
   <div class="now-serving">
-<<<<<<< HEAD
     <div class="ns-label"><span class="pulse"></span>Now consulting</div>
     <div id="queueArea">Loading queue...</div>
-=======
     <div class="ns-label"><div class="pulse-dot"></div> Now consulting</div>
     <div id="queueArea">Loading...</div>
->>>>>>> 41036b6 (first commit)
   </div>
 
   <div class="card">
@@ -246,10 +228,8 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
     <h2>Write Prescription ✍️</h2>
     <p>Fill in the consultation details</p>
   </div>
-<<<<<<< HEAD
   <form action="submit_prescription.php" method="POST">
     <div id="rx-patient-info" class="rx-banner">
-=======
 
   <div id="success-box" class="success-box">
     <div style="font-size:32px;margin-bottom:8px">✅</div>
@@ -260,14 +240,12 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 
   <div id="rx-form-wrap">
     <div class="rx-banner">
->>>>>>> 41036b6 (first commit)
       <div class="rx-icon" id="rx-icon">?</div>
       <div>
         <div class="rx-pname" id="rx-pname">Loading patient...</div>
         <div class="rx-pid" id="rx-pid"></div>
       </div>
     </div>
-<<<<<<< HEAD
     <div class="form-group" style="margin-bottom:12px">
       <label class="form-label">Diagnosis</label>
       <textarea class="rx-textarea" name="diagnosis" rows="3" placeholder="e.g. Acute viral fever with mild cough..." required></textarea>
@@ -282,26 +260,7 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
     </div>
     <button type="submit" class="submit-btn">Submit Prescription → Pharmacy</button>
   </form>
-=======
-    <form action="submit_prescription.php" method="POST" onsubmit="handleRxSubmit(event)">
-      <input type="hidden" id="rx-token-input" name="token_id" value="">
-      <input type="hidden" id="rx-patient-input" name="patient_id" value="">
-      <div class="form-group">
-        <label class="form-label">Diagnosis</label>
-        <textarea class="form-textarea" name="diagnosis" rows="3" placeholder="e.g. Acute viral fever with mild cough..." required></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Medicines prescribed</label>
-        <textarea class="form-textarea" name="medicines" rows="3" placeholder="e.g. Paracetamol 500mg — 1×3 daily for 5 days" required></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes / Instructions</label>
-        <textarea class="form-textarea" name="notes" rows="2" placeholder="e.g. Rest for 3 days. Avoid cold drinks."></textarea>
-      </div>
-      <button type="submit" class="submit-btn">Submit Prescription → Pharmacy</button>
-    </form>
   </div>
->>>>>>> 41036b6 (first commit)
 </div>
 
 <!-- PROFILE SCREEN -->
@@ -312,13 +271,10 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
     <div class="d-dept"><?= htmlspecialchars($staff['department']) ?></div>
     <div class="d-id"><?= $staff['staff_id'] ?></div>
   </div>
-<<<<<<< HEAD
-=======
   <div class="today-grid">
     <div class="today-stat"><div class="today-num"><?= $waiting + $done ?></div><div class="today-lbl">Patients today</div></div>
     <div class="today-stat"><div class="today-num"><?= $done ?></div><div class="today-lbl">Done so far</div></div>
   </div>
->>>>>>> 41036b6 (first commit)
   <div class="card">
     <div class="card-title">Staff Info</div>
     <div class="profile-row"><span class="lbl">Staff ID</span><span class="val"><?= $staff['staff_id'] ?></span></div>
@@ -331,7 +287,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
-<<<<<<< HEAD
   <button class="nav-item active" id="tab-queue" onclick="switchTab('queue')" href="#">
     <div class="nav-icon">🧾</div><div class="nav-label">Queue</div>
   </button>
@@ -340,7 +295,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   </button>
   <button class="nav-item" id="tab-profile" onclick="switchTab('profile')" href="#">
     <div class="nav-icon">👨‍⚕️</div><div class="nav-label">Profile</div>
-=======
   <button class="nav-item active" id="tab-queue" onclick="switchTab('queue')">
     <span class="nav-icon">🧾</span><span class="nav-label">Queue</span>
   </button>
@@ -349,22 +303,17 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   </button>
   <button class="nav-item" id="tab-profile" onclick="switchTab('profile')">
     <span class="nav-icon">👨‍⚕️</span><span class="nav-label">Profile</span>
->>>>>>> 41036b6 (first commit)
   </button>
 </div>
 
 <script>
-<<<<<<< HEAD
-=======
 var currentPatient = { name:'', pid:'', token:'', initials:'' };
 
->>>>>>> 41036b6 (first commit)
 function switchTab(tab) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('screen-' + tab).classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
-<<<<<<< HEAD
   return false;
 }
 
@@ -386,42 +335,14 @@ function goToPrescribe() {
     }
     switchTab('prescription');
   });
-=======
   window.scrollTo(0,0);
 }
-
-function loadQueue() {
-  fetch('live_queue.php')
-    .then(r => r.text())
-    .then(html => { document.getElementById('queueArea').innerHTML = html; });
-  fetch('live_queue.php?list=1')
-    .then(r => r.text())
-    .then(html => { document.getElementById('waitingList').innerHTML = html; });
-  fetch('live_queue.php?current=1')
-    .then(r => r.json())
-    .then(p => { currentPatient = p; });
-}
-
-function goToPrescribe() {
-  if (currentPatient && currentPatient.name) {
-    document.getElementById('rx-pname').textContent = currentPatient.name;
-    document.getElementById('rx-pid').textContent   = currentPatient.pid + ' · Token ' + currentPatient.token;
-    document.getElementById('rx-icon').textContent  = currentPatient.initials;
-    document.getElementById('rx-token-input').value   = currentPatient.token;
-    document.getElementById('rx-patient-input').value = currentPatient.pid;
-  }
-  document.getElementById('success-box').classList.remove('show');
-  document.getElementById('rx-form-wrap').style.display = 'block';
-  switchTab('prescription');
-}
-
 function handleRxSubmit(e) {
   // Let form submit normally, then show success
   setTimeout(function() {
     document.getElementById('success-box').classList.add('show');
     document.getElementById('rx-form-wrap').style.display = 'none';
   }, 300);
->>>>>>> 41036b6 (first commit)
 }
 
 setInterval(loadQueue, 5000);

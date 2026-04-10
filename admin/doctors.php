@@ -1,9 +1,8 @@
 <?php
 session_start();
-<<<<<<< HEAD
+
 if ($_SESSION['role'] != "admin") { header("Location: ../staff/login.html"); exit; }
 include("../config/db.php");
-=======
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "admin") {
     header("Location: ../staff/login.html"); exit;
 }
@@ -121,4 +120,3 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 </div>
 </body>
 </html>
->>>>>>> 41036b6 (first commit)
