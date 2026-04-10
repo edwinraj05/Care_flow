@@ -1,15 +1,5 @@
 <?php
 session_start();
-<<<<<<< HEAD
-if ($_SESSION['role'] != "reception") { header("Location: ../staff/login.html"); exit; }
-include("../config/db.php");
-$staff_id = $_SESSION['user'];
-$res = mysqli_query($conn,"SELECT * FROM staff WHERE staff_id='$staff_id'");
-$staff = mysqli_fetch_assoc($res);
-$initials = strtoupper(substr($staff['name'],0,1)).(strpos($staff['name'],' ')!==false?strtoupper(substr($staff['name'],strpos($staff['name'],' ')+1,1)):'');
-$today_patients = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE DATE(created_at)=CURDATE()"))['t'];
-$waiting = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Waiting'"))['t'];
-=======
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "reception") {
     header("Location: ../staff/login.html"); exit;
 }
@@ -23,48 +13,10 @@ $initials = strtoupper(substr($parts[0],0,1)) . (isset($parts[1]) ? strtoupper(s
 $today_tokens = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE DATE(created_at)=CURDATE()"))['t'];
 $waiting      = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM tokens WHERE status='Waiting'"))['t'];
 $total_patients = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as t FROM patients"))['t'];
->>>>>>> 41036b6 (first commit)
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Reception | CareFlow</title>
-  <link rel="stylesheet" href="../public/style.css">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; padding-bottom: 80px; }
-.topbar-logo { text-decoration: none !important; }
-.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; padding: 4px 20px; border-radius: 10px; text-decoration: none !important; border: none; background: none; outline: none; -webkit-tap-highlight-color: transparent; font-family: 'DM Sans', Arial, sans-serif; }
-.nav-item.active { background: #eff6ff; }
-.nav-label { font-size: 11px; color: #94a3b8; font-weight: 500; text-decoration: none !important; }
-.nav-item.active .nav-label { color: #3b82f6; }
-.nav-icon { font-size: 22px; line-height: 1; }
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e0e9ff; display: flex; justify-content: space-around; padding: 8px 0 10px; z-index: 200; }
-.topbar { position: sticky; top: 0; z-index: 200; }
-</style>
-  <style>
-    body { padding-bottom: 80px; }
-    .rec-hero { background:linear-gradient(135deg,#0f1e4a,#1e40af); border-radius:16px; padding:22px; color:white; text-align:center; margin-bottom:14px; }
-    .rec-avatar { width:68px; height:68px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; margin:0 auto 10px; border:3px solid rgba(255,255,255,0.3); }
-    .rec-name { font-family:'DM Serif Display',serif; font-size:22px; }
-    .success-msg { background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:12px; padding:14px; text-align:center; margin-bottom:14px; display:none; }
-    .success-msg.show { display:block; }
-    .submit-btn { background:#3b82f6; color:white; border:none; padding:13px; border-radius:12px; font-size:14px; font-weight:600; cursor:pointer; width:100%; margin-top:4px; }
-    .submit-btn:hover { background:#2563eb; }
-    .token-result { background:linear-gradient(135deg,#0f1e4a,#1e40af); border-radius:14px; padding:18px; color:white; text-align:center; margin-bottom:14px; display:none; }
-    .token-result.show { display:block; }
-    .token-result-num { font-family:'DM Serif Display',serif; font-size:48px; }
-    .screen { display:none; padding:16px; }
-    .screen.active { display:block; }
-    .stats-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
-    .stat-box { background:white; border-radius:12px; padding:14px; text-align:center; border:1px solid #e0e9ff; }
-    .stat-num { font-family:'DM Serif Display',serif; font-size:28px; color:#3b82f6; }
-    .stat-lbl { font-size:10px; color:#94a3b8; margin-top:2px; }
-  </style>
-=======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reception | CareFlow</title>
@@ -130,16 +82,11 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 .profile-row .lbl { color: #94a3b8; }
 .profile-row .val { color: #0f172a; font-weight: 500; }
 </style>
->>>>>>> 41036b6 (first commit)
 </head>
 <body>
 
 <div class="topbar">
-<<<<<<< HEAD
-  <a href="#" class="topbar-logo">Care<span>Flow</span></a>
-=======
   <a href="#" class="topbar-logo" onclick="switchTab('register');return false;">Care<span>Flow</span></a>
->>>>>>> 41036b6 (first commit)
   <div class="topbar-right">
     <div class="topbar-avatar"><?= $initials ?></div>
     <span class="topbar-name"><?= htmlspecialchars($staff['name']) ?></span>
@@ -156,15 +103,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   </div>
 
   <div class="stats-row">
-<<<<<<< HEAD
-    <div class="stat-box"><div class="stat-num"><?= $today_patients ?></div><div class="stat-lbl">Tokens Today</div></div>
-    <div class="stat-box"><div class="stat-num"><?= $waiting ?></div><div class="stat-lbl">Currently Waiting</div></div>
-  </div>
-
-  <div id="reg-success" class="success-msg">
-    <div style="font-size:28px;margin-bottom:6px">✅</div>
-    <p style="font-size:13px;color:#1d4ed8;font-weight:500">Patient registered successfully!</p>
-=======
     <div class="stat-box"><div class="stat-num"><?= $today_tokens ?></div><div class="stat-lbl">Tokens Today</div></div>
     <div class="stat-box"><div class="stat-num"><?= $waiting ?></div><div class="stat-lbl">Waiting</div></div>
     <div class="stat-box"><div class="stat-num"><?= $total_patients ?></div><div class="stat-lbl">Total Patients</div></div>
@@ -174,7 +112,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
     <div style="font-size:32px;margin-bottom:8px">✅</div>
     <p style="font-size:14px;font-weight:600;color:#1d4ed8">Patient registered successfully!</p>
     <button onclick="document.getElementById('reg-success').classList.remove('show')" style="margin-top:10px;background:#3b82f6;color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',Arial,sans-serif;">Register Another</button>
->>>>>>> 41036b6 (first commit)
   </div>
 
   <div class="card">
@@ -210,13 +147,8 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 
   <div id="token-result" class="token-result">
     <div style="font-size:11px;opacity:.75;margin-bottom:4px">Token Generated</div>
-<<<<<<< HEAD
-    <div class="token-result-num" id="token-result-num">T-000</div>
-    <div style="font-size:13px;opacity:.8;margin-top:8px">Patient has been added to the queue</div>
-=======
     <div class="token-result-num" id="token-result-num">—</div>
     <div style="font-size:13px;opacity:.8;margin-top:8px">Patient added to the queue</div>
->>>>>>> 41036b6 (first commit)
   </div>
 
   <div class="card">
@@ -236,13 +168,8 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   <div class="rec-hero">
     <div class="rec-avatar"><?= $initials ?></div>
     <div class="rec-name"><?= htmlspecialchars($staff['name']) ?></div>
-<<<<<<< HEAD
-    <div style="font-size:12px;opacity:.8;margin-top:4px"><?= htmlspecialchars($staff['department']) ?></div>
-    <div style="font-size:11px;background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;display:inline-block;margin-top:6px"><?= $staff['staff_id'] ?></div>
-=======
     <div class="rec-dept"><?= htmlspecialchars($staff['department']) ?></div>
     <div class="rec-id"><?= $staff['staff_id'] ?></div>
->>>>>>> 41036b6 (first commit)
   </div>
   <div class="card">
     <div class="card-title">Staff Info</div>
@@ -254,18 +181,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   </div>
 </div>
 
-<<<<<<< HEAD
-<div class="bottom-nav">
-  <button class="nav-item active" id="tab-register" onclick="switchTab('register')" href="#">
-    <div class="nav-icon">📋</div><div class="nav-label">Register</div>
-  </a>
-  <button class="nav-item" id="tab-token" onclick="switchTab('token')" href="#">
-    <div class="nav-icon">🎫</div><div class="nav-label">Token</div>
-  </a>
-  <button class="nav-item" id="tab-profile" onclick="switchTab('profile')" href="#">
-    <div class="nav-icon">👤</div><div class="nav-label">Profile</div>
-  </a>
-=======
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <button class="nav-item active" id="tab-register" onclick="switchTab('register')">
@@ -277,7 +192,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
   <button class="nav-item" id="tab-profile" onclick="switchTab('profile')">
     <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
   </button>
->>>>>>> 41036b6 (first commit)
 </div>
 
 <script>
@@ -286,18 +200,11 @@ function switchTab(tab) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('screen-' + tab).classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
-<<<<<<< HEAD
-  return false;
-}
-function showSuccess(id) {
-  setTimeout(() => document.getElementById(id).classList.add('show'), 300);
-=======
   window.scrollTo(0, 0);
 }
 function showSuccess(id) {
   document.getElementById(id).classList.add('show');
   window.scrollTo(0, 0);
->>>>>>> 41036b6 (first commit)
 }
 </script>
 </body>

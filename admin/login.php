@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['role'] == 'admin') { header("Location: admin_dashboard.php"); exit; }
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') { header("Location: admin_dashboard.php"); exit; }
 ?>
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Admin Login | CareFlow</title>
 <link rel="stylesheet" href="../public/style.css"></head>

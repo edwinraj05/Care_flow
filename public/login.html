@@ -12,14 +12,11 @@
     <div style="font-size:32px;margin-bottom:12px">🏥</div>
     <h2>Welcome back</h2>
     <p class="subtitle">Sign in to your patient account</p>
-<<<<<<< HEAD
-=======
 
     <div id="err-box" style="display:none;background:#fee2e2;color:#b91c1c;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;">
       Invalid credentials. Please try again.
     </div>
 
->>>>>>> 41036b6 (first commit)
     <form action="../auth/login.php" method="POST">
       <input type="hidden" name="role" value="patient">
       <div class="form-group">
@@ -36,14 +33,11 @@
     <p class="form-footer" style="margin-top:8px"><a href="../staff/login.html">Staff Login →</a></p>
   </div>
 </div>
-<<<<<<< HEAD
-=======
 <script>
   // Show error if redirected back with ?error=1
   if (new URLSearchParams(window.location.search).get('error')) {
     document.getElementById('err-box').style.display = 'block';
   }
 </script>
->>>>>>> 41036b6 (first commit)
 </body>
 </html>

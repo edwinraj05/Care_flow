@@ -1,49 +1,5 @@
 <?php
 session_start();
-<<<<<<< HEAD
-if ($_SESSION['role'] != "admin")
-    die("Access Denied");
-
-include("../config/db.php");
-
-if (isset($_POST['submit'])) {
-
-    $id = $_POST['staff_id'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $role = $_POST['role'];
-
-    mysqli_query(
-        $conn,
-        "INSERT INTO staff (staff_id,name,email,password,role,is_active)
-     VALUES ('$id','$name','$email','$password','$role',1)"
-    );
-
-    echo "Staff Added Successfully";
-}
-?>
-
-<h2>Add Staff</h2>
-
-<form method="POST">
-
-    <input name="staff_id" placeholder="Staff ID" required><br><br>
-    <input name="name" placeholder="Name" required><br><br>
-    <input name="email" placeholder="Email" required><br><br>
-    <input name="password" placeholder="Password" required><br><br>
-
-    <select name="role">
-        <option value="doctor">Doctor</option>
-        <option value="pharmacist">Pharmacist</option>
-        <option value="reception">Receptionist</option>
-    </select>
-
-    <br><br>
-    <button name="submit">Add Staff</button>
-
-</form>
-=======
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "admin") {
     header("Location: ../staff/login.html"); exit;
 }
@@ -170,4 +126,3 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 </div>
 </body>
 </html>
->>>>>>> 41036b6 (first commit)
