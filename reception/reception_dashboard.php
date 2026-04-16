@@ -65,9 +65,6 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
 .submit-btn { background: #3b82f6; color: #fff; border: none; padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; font-family: 'DM Sans', Arial, sans-serif; margin-top: 4px; }
 .submit-btn:hover { background: #2563eb; }
 
-.success-box { background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 18px; text-align: center; margin-bottom: 14px; display: none; }
-.success-box.show { display: block; }
-
 .token-result { background: linear-gradient(135deg,#0f1e4a,#1e40af); border-radius: 14px; padding: 20px; color: #fff; text-align: center; margin-bottom: 14px; display: none; }
 .token-result.show { display: block; }
 .token-result-num { font-family: 'DM Serif Display', Georgia, serif; font-size: 48px; }
@@ -108,33 +105,10 @@ body { font-family: 'DM Sans', Arial, sans-serif; background: #f0f4ff; color: #0
     <div class="stat-box"><div class="stat-num"><?= $total_patients ?></div><div class="stat-lbl">Total Patients</div></div>
   </div>
 
-  <div id="reg-success" class="success-box">
-    <div style="font-size:32px;margin-bottom:8px">✅</div>
-    <p style="font-size:14px;font-weight:600;color:#1d4ed8">Patient registered successfully!</p>
-    <button onclick="document.getElementById('reg-success').classList.remove('show')" style="margin-top:10px;background:#3b82f6;color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',Arial,sans-serif;">Register Another</button>
-  </div>
-
   <div class="card">
     <div class="card-title">Register Walk-in Patient</div>
-    <form action="register_patient.php" method="POST" onsubmit="showSuccess('reg-success')">
-      <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input class="form-input" name="name" placeholder="Patient full name" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Date of Birth</label>
-        <input class="form-input" type="date" name="dob" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Phone Number</label>
-        <input class="form-input" name="phone" placeholder="+91 98765 43210" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email (optional)</label>
-        <input class="form-input" name="email" placeholder="patient@email.com">
-      </div>
-      <button type="submit" class="submit-btn">Register Patient →</button>
-    </form>
+    <p style="font-size:13px;color:#64748b;margin-bottom:16px;">Click below to open the patient registration form.</p>
+    <a href="register_patient.php" class="submit-btn" style="display:block;text-align:center;text-decoration:none;">Register Patient →</a>
   </div>
 </div>
 
@@ -200,10 +174,6 @@ function switchTab(tab) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('screen-' + tab).classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
-  window.scrollTo(0, 0);
-}
-function showSuccess(id) {
-  document.getElementById(id).classList.add('show');
   window.scrollTo(0, 0);
 }
 </script>
